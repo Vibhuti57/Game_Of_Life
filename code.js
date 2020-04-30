@@ -105,6 +105,20 @@ function clearButtonHandler() {
 	playing = false;
 	var startButton = document.getElementById("start");
 	startButton.innerHTML = "Start";
+	
+	clearTimeout(timer);
+	
+	// returns a node list - list selection
+	var cellsList = document.getElementsByClassName("live");
+	// create a new array from node list;
+	var cells = [];
+	for (var i = 0; i < cellsList.length; i++) {
+		cells.push(cellsList[i]);
+	}
+	for (var i = 0; i < cells.length; i++) {
+		cells[i].setAttribute("class","dead");
+	}
+	resetGrids();
 }
 
 function startButtonHandler() {
