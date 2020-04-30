@@ -22,6 +22,14 @@ function resetGrids() {
 	}
 }
 
+function copyAndResetGrid() {
+	for (var i = 0; i < rows; i++) {
+		for (var j= 0; j < cols; j++) {
+			grid[i][j] = nextGrid[i][j];
+			nextGrid[i][j] = 0;
+		}
+	}
+}
 // initialize
 function initialize() {
 	createTable();
@@ -67,6 +75,20 @@ function cellClickHandler() {
 	}
 }
 
+function updateView() {
+	for (var i = 0; i < rows; i++) {
+		for (var j = 0; j < cols; j++) {
+			var cell = document.getElementById(i + "_" + j);
+			if (grid[i][j] == 0) {
+				cell.setAttribute("class", "dead");
+			}
+			else {
+				cell.setAttribute("class", "live");
+			}
+		}
+	}
+}
+
 function setupControlButtons() {
 	var startButton = document.getElementById("start");
 	startButton.onclick = startButtonHandler;
@@ -107,6 +129,9 @@ function computeNextGen() {
 			applyRules(i, j);
 		}
 	}
+	
+	copyAndResetGrid();
+	updateView();
 }
 
 function applyRules(row, col) {
